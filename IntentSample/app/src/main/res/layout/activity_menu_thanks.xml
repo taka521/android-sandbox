@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <!--  注文完了  -->
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:gravity="center"
+      android:text="@string/tv_thx_title"
+      android:textSize="25sp" />
+
+  <!-- 以下のメニューのと表示するよう -->
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:gravity="center"
+      android:text="@string/tv_thx_desc"
+      android:textSize="15sp" />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <!--  定食名表示用  -->
+    <TextView
+        android:id="@+id/tvMenuName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <!-- 金額表示用 -->
+    <TextView
+        android:id="@+id/tvMenuPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+  </LinearLayout>
+
+  <!-- リストに戻るボタン -->
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:onClick="onBackButtonClick"
+      android:text="@string/tv_thx_back" />
+
+</LinearLayout>
