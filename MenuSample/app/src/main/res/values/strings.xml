@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MenuSample</string>
+    <string name="tv_menu_unit">円</string>
+    <string name="menu_list_options_teishoku">定食</string>
+    <string name="menu_list_options_curry">カレー</string>
+    <string name="menu_list_options_desc">説明を表示</string>
+    <string name="menu_list_options_order">ご注文</string>
+    <string name="menu_list_options_header">操作を選んでください。</string>
+    <string name="tv_thx_title">注文完了</string>
+    <string name="tv_thx_desc">以下のメニューのご注文を受け受けました。\nご注文ありがとうございます。</string>
+</resources>
