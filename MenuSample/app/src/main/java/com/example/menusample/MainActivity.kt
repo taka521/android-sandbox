@@ -3,12 +3,14 @@ package com.example.menusample
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.SimpleAdapter
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         lvMenu.adapter = adapter
         lvMenu.onItemClickListener = ListItemClickListener()
 
+        registerForContextMenu(lvMenu)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -44,6 +47,30 @@ class MainActivity : AppCompatActivity() {
         lvMenu.adapter = adapter
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        menuInflater.inflate(R.menu.menu_context_menu_list, menu)
+        menu.setHeaderTitle(R.string.menu_list_options_header)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+
+        val listPosition = info.position
+        val menu = _menuList!![listPosition]
+
+        when (item.itemId) {
+            R.id.menuListContextDesc -> {
+                val desc = menu["desc"] as String
+                Toast.makeText(applicationContext, desc, Toast.LENGTH_LONG).show()
+            }
+            R.id.menuListContextOrder -> order(menu)
+        }
+
+        return super.onContextItemSelected(item)
     }
 
     private fun createTeishokuList(): MutableList<MutableMap<String, Any>> {
@@ -85,19 +112,23 @@ class MainActivity : AppCompatActivity() {
         return menuList
     }
 
+    private fun order(menu: MutableMap<String, Any>) {
+        val menuName = menu["name"] as String
+        val menuPrice = menu["price"] as Int
+
+        val intent = Intent(applicationContext, MenuThanksActivity::class.java)
+        intent.putExtra("menuName", menuName)
+        intent.putExtra("menuPrice", "${menuPrice}円")
+
+        startActivity(intent)
+    }
+
     private inner class ListItemClickListener : AdapterView.OnItemClickListener {
         override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
             val item = parent.getItemAtPosition(position) as MutableMap<String, Any>
 
-            val menuName = item["name"] as String
-            val menuPrice = item["price"] as Int
-
-            val intent = Intent(applicationContext, MenuThanksActivity::class.java)
-            intent.putExtra("menuName", menuName)
-            intent.putExtra("menuPrice", "${menuPrice}円")
-
-            startActivity(intent)
+            order(item)
         }
 
     }
